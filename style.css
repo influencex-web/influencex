@@ -1933,4 +1933,13 @@ footer {
   .cta-inner { padding: 50px 24px; }
   .footer-links { grid-template-columns: 1fr 1fr; }
   .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
+  .nav-btn {padding: 7px 13px; font-size: 11px;  }
+  .logo {font-size: 18px;   /* slightly smaller logo text on mobile */ gap: 6px;  }
+  .logo-icon {font-size: 11px;}
 }
+
+
+
+
+
+
