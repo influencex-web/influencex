@@ -77,11 +77,11 @@ mobileMenu?.querySelectorAll('a').forEach(link => {
 
 // ─── TYPING ANIMATION ───────────────────────
 const words = [
-  "Find your next creator partner...",
-  "Your next paid deal starts here...",
-  "Connect. Create. Collaborate...",
-  "Influence more. Earn more. Grow faster...",
-  "Search 10,000+ verified creators..."
+  "Brand X Creator...",
+  "Earn with paid collabs...",
+  "Create, Connect, Collab...",
+  "Influence, Grow, Earn...",
+  "Vibe & Create..."
 ];
 
 let wordIndex  = 0;
