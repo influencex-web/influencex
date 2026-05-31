@@ -34,13 +34,14 @@ body{
   font-family:'DM Sans',sans-serif;
   background:var(--bg);
   color:var(--text);
-  min-height:100vh;
+  min-height: 100svh;
   display:flex;
   align-items:center;
   justify-content:center;
-  overflow:hidden;
+  overflow-x:hidden;
+  overflow-y:auto;
   position:relative;
-  padding:20px;
+  padding: 60px 20px;
 }
 
 /* BACKGROUND GLOW */
@@ -86,6 +87,7 @@ body::after{
 
 .blob{
   position:fixed;
+  pointer-events:none;
   border-radius:50%;
   filter:blur(90px);
   opacity:.18;
@@ -133,6 +135,7 @@ body::after{
 
 .floating{
   position:fixed;
+  pointer-events:none;
   border:1px solid rgba(255,255,255,.06);
   background:rgba(255,255,255,.03);
   backdrop-filter:blur(14px);
@@ -253,7 +256,7 @@ body::after{
   border-radius:28px;
   padding:48px 42px;
   position:relative;
-  z-index:10;
+  z-index:10  ;
   overflow:hidden;
   box-shadow:
     0 20px 60px rgba(0,0,0,.45),
