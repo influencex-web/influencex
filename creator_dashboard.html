@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
   <style>
+  body { visibility: hidden; }
 :root{
   --red:#ff2e63;--red-dim:rgba(255,46,99,.1);--red-border:rgba(255,46,99,.22);
   --red-glow:rgba(255,46,99,.18);
@@ -354,7 +355,7 @@ background-size:128px 128px}
   <div class="sb-footer">
     <a href="index.html" class="sb-foot-link">
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M10 7H2M5 3L1 7l4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-      Back to Home
+       Back to Home
     </a>
   </div>
 </aside>
@@ -383,13 +384,13 @@ background-size:128px 128px}
     <div class="banner-glow"></div>
     <div class="banner-glow2"></div>
     <div class="ban-txt">
-      <h2 id="welcomeText">Welcome back, Creator 🚀</h2>
-      <p id="bannerSubText">Your creator journey starts here. Complete your profile to get discovered by top brands.</p>
-    </div>
-    <div class="ban-acts" id="bannerActions">
-      <button class="btn-w" onclick="showSec('deals',document.querySelector('[onclick*=deals]'))">View Deals</button>
-      <button class="btn-gw" onclick="showSec('profile',document.querySelector('[onclick*=profile]'))">Complete Profile</button>
-    </div>
+  <h2 id="welcomeText">Welcome back, Creator 🚀</h2>
+  <p id="bannerSubText">Your creator journey starts here. Complete your profile to get discovered by top brands.</p>
+</div>
+<div class="ban-acts" id="bannerActions">
+  <button class="btn-w" onclick="showSec('deals',document.querySelector('[onclick*=deals]'))">View Deals</button>
+  <button class="btn-gw" onclick="showSec('profile',document.querySelector('[onclick*=profile]'))">Complete Profile</button>
+</div>
   </div>
 
   <div class="stat-grid">
@@ -659,7 +660,7 @@ background-size:128px 128px}
 <!-- FIREBASE -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
-import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged, signOut, sendEmailVerification } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
 import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
 
 const cfg = {apiKey:"AIzaSyBRUQhirkr0YyDaiU7XoaNHZT5v0jLcFO4",authDomain:"influencex-2302a.firebaseapp.com",projectId:"influencex-2302a",storageBucket:"influencex-2302a.firebasestorage.app",messagingSenderId:"974344728489",appId:"1:974344728489:web:be5d35264cce608db11eb8"};
@@ -791,8 +792,71 @@ function populateUI(d){
 
 onAuthStateChanged(auth,async(user)=>{
   if(!user){window.location.href='creator_login.html';return;}
-  if(!user.emailVerified){await signOut(auth);window.location.href='creator_login.html';return;}
-  document.getElementById('creatorEmail').textContent=user.email;
+  if(!user.emailVerified){
+    document.body.style.visibility='visible';
+    document.body.innerHTML = `
+      <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:#06060f;font-family:'DM Sans',sans-serif;">
+        <div style="text-align:center;padding:48px 32px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:24px;max-width:420px;width:90%;">
+          <div style="font-size:52px;margin-bottom:20px;">📧</div>
+          <h2 style="font-family:'Syne',sans-serif;color:white;font-size:24px;margin-bottom:12px;letter-spacing:-0.5px;">Verify your email</h2>
+          <p style="color:rgba(255,255,255,0.5);font-size:14px;line-height:1.7;margin-bottom:28px;">We sent a verification link to <strong style="color:white;">${user.email}</strong>. Please check your inbox and click the link to activate your account.</p>
+          <div id="verifyMsg" style="display:none;margin-bottom:12px;padding:12px 16px;background:rgba(255,80,80,0.08);border:1px solid rgba(255,80,80,0.25);border-radius:12px;color:#ff5050;font-size:13px;">⚠ Email not verified yet. Please check your inbox and click the verification link first.</div>
+<div id="verifyMsg" style="display:none;margin-bottom:12px;padding:12px 16px;background:rgba(255,80,80,0.08);border:1px solid rgba(255,80,80,0.25);border-radius:12px;color:#ff5050;font-size:13px;">⚠ Email not verified yet. Please check your inbox and click the verification link first.</div>
+<button onclick="checkVerification()" style="width:100%;padding:14px;background:linear-gradient(135deg,#ff2e63,#7c3aed);border:none;border-radius:50px;color:white;font-size:14px;font-family:'Syne',sans-serif;font-weight:700;cursor:pointer;margin-bottom:12px;">I've verified — Continue</button>
+          <button onclick="resendVerification()" id="resendBtn" style="width:100%;padding:14px;background:transparent;border:1px solid rgba(255,255,255,0.1);border-radius:50px;color:rgba(255,255,255,0.5);font-size:14px;font-family:'DM Sans',sans-serif;cursor:pointer;">Resend verification email</button>
+          <div style="margin-top:20px;display:flex;align-items:center;justify-content:center;gap:16px;">
+  <a href="index.html" style="font-size:12px;color:rgba(255,255,255,0.3);text-decoration:none;display:flex;align-items:center;gap:5px;">
+    ← Back to Home
+  </a>
+  <span style="color:rgba(255,255,255,0.15);font-size:12px;">|</span>
+  <p style="font-size:12px;color:rgba(255,255,255,0.3);margin:0;">Wrong account? <a href="creator_login.html" style="color:#ff6b81;text-decoration:none;">Sign out</a></p>
+</div>
+        </div>
+      </div>
+    `;
+
+    window.resendVerification = async () => {
+      const btn = document.getElementById('resendBtn');
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
+      await sendEmailVerification(user);
+      btn.textContent = 'Email sent! Check your inbox ✓';
+      setTimeout(() => { btn.textContent = 'Resend verification email'; btn.disabled = false; }, 4000);
+    };
+    window.resendVerification = async () => {
+      const btn = document.getElementById('resendBtn');
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
+      await sendEmailVerification(user);
+      btn.textContent = 'Email sent! Check your inbox ✓';
+      setTimeout(() => { btn.textContent = 'Resend verification email'; btn.disabled = false; }, 4000);
+    };
+
+    window.checkVerification = async () => {
+      const btn = document.querySelector('button[onclick="checkVerification()"]');
+      btn.textContent = 'Checking...';
+      btn.disabled = true;
+      try {
+        await user.reload();
+        if(user.emailVerified){
+          window.location.reload();
+        } else {
+          btn.textContent = "I've verified — Continue";
+          btn.disabled = false;
+          const msg = document.getElementById('verifyMsg');
+          if(msg){ msg.style.display='block'; setTimeout(()=>{ msg.style.display='none'; },4000); }
+        }
+      } catch(e) {
+        btn.textContent = "I've verified — Continue";
+        btn.disabled = false;
+      }
+    };
+
+    return;
+    return;
+  }
+  document.body.style.visibility='visible';
+  // rest of your normal dashboard code continues below...  document.getElementById('creatorEmail').textContent=user.email;
   try{
     const snap=await getDoc(doc(db,'users',user.uid));
     if(!snap.exists())return;
