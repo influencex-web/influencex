@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Connect Accounts - InfluenceX</title>
+<style>
+:root{
+  --primary:#ff2e63;
+  --bg:#0b0b10;
+  --card:#141420;
+  --text:#eaeaf2;
+  --muted:#9aa0b4;
+  --success:#19c37d;
+  --danger:#ff4f4f;
+}
+*{ margin:0; padding:0; box-sizing:border-box; font-family:"Segoe UI",sans-serif; }
+body{ background:radial-gradient(circle at top,#151526,var(--bg)); color:var(--text); min-height:100vh; }
+
+/* NAV */
+nav{ display:flex; justify-content:space-between; align-items:center; padding:20px 60px; }
+.logo{ color:var(--primary); font-size:24px; font-weight:700; }
+nav a{ color:var(--text); text-decoration:none; margin-left:20px; opacity:0.8; }
+nav a:hover{ color:var(--primary); }
+
+/* LAYOUT */
+.container{ display:grid; grid-template-columns:260px 1fr; min-height:calc(100vh - 80px); }
+
+/* SIDEBAR */
+.sidebar{ background:rgba(20,20,32,0.6); backdrop-filter:blur(10px); padding:25px; border-right:1px solid rgba(255,255,255,0.05); }
+.profile{ text-align:center; margin-bottom:30px; }
+.avatar{ width:80px; height:80px; border-radius:50%; background:var(--primary); margin:auto; display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:bold; }
+.profile h3{ margin-top:10px; }
+.profile p{ font-size:12px; color:var(--muted); }
+.user-email{ font-size:13px; color:var(--muted); margin-top:5px; }
+.menu button{ width:100%; background:transparent; border:none; color:var(--text); padding:12px; text-align:left; cursor:pointer; border-radius:10px; margin-bottom:8px; transition:0.3s; }
+.menu button:hover{ background:rgba(255,46,99,0.1); color:var(--primary); }
+.menu button.active{ background:rgba(255,46,99,0.15); color:var(--primary); font-weight:600; }
+
+/* MAIN */
+.main{ padding:40px; overflow-y:auto; }
+
+.hero{ margin-bottom:35px; }
+.hero h1{ font-size:32px; margin-bottom:10px; }
+.hero p{ color:var(--muted); line-height:1.7; max-width:650px; }
+
+/* CARD */
+.accounts-card{ background:rgba(20,20,32,.75); border:1px solid rgba(255,255,255,.05); border-radius:24px; padding:30px; backdrop-filter:blur(10px); box-shadow:0 10px 40px rgba(0,0,0,.25); }
+.section-title{ display:flex; align-items:center; justify-content:space-between; margin-bottom:25px; }
+.section-title h2{ font-size:22px; }
+.badge{ background:rgba(255,46,99,.15); color:var(--primary); padding:8px 14px; border-radius:30px; font-size:13px; font-weight:600; }
+
+/* SOCIAL ITEMS */
+.social-list{ display:flex; flex-direction:column; gap:16px; }
+.social-item{ background:var(--card); border:1px solid rgba(255,255,255,.05); border-radius:18px; padding:16px 20px; display:flex; align-items:center; justify-content:space-between; transition:.3s; }
+.social-item:hover{ transform:translateY(-3px); border-color:rgba(255,46,99,.3); }
+.social-left{ display:flex; align-items:center; gap:16px; }
+.social-icon{ width:50px; height:50px; border-radius:14px; background:rgba(255,46,99,.12); display:flex; align-items:center; justify-content:center; font-size:24px; flex-shrink:0; }
+.social-info h3{ margin-bottom:4px; font-size:15px; }
+.social-info p{ color:var(--muted); font-size:13px; }
+.social-right{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+
+.handle{ color:var(--text); font-size:13px; opacity:0.75; }
+.connect-btn{ border:none; background:var(--primary); color:white; padding:10px 18px; border-radius:30px; cursor:pointer; transition:.3s; font-weight:600; font-size:14px; }
+.connect-btn:hover{ transform:scale(1.05); }
+
+.connected-state{ display:none; align-items:center; gap:8px; }
+.connected-state.visible{ display:flex; }
+.connected-badge{ background:rgba(25,195,125,.12); color:var(--success); padding:7px 13px; border-radius:30px; font-size:13px; font-weight:600; }
+.icon-btn{ background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08); color:var(--muted); width:36px; height:36px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:15px; transition:.3s; flex-shrink:0; }
+.icon-btn:hover{ transform:scale(1.1); }
+.icon-btn.edit:hover{ color:#60a5fa; border-color:rgba(96,165,250,.4); background:rgba(96,165,250,.1); }
+.icon-btn.remove:hover{ color:var(--danger); border-color:rgba(255,79,79,.4); background:rgba(255,79,79,.1); }
+.connect-trigger{ display:block; }
+.connect-trigger.hidden{ display:none; }
+
+/* BOTTOM ACTIONS */
+.bottom-actions{ margin-top:28px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:15px; }
+.skip-btn{ background:none; border:none; color:var(--muted); cursor:pointer; font-size:15px; }
+.validate-btn{ background:linear-gradient(135deg,#ff2e63,#ff4f81); border:none; color:white; padding:13px 26px; border-radius:40px; font-weight:600; cursor:pointer; transition:.3s; }
+.validate-btn:hover{ transform:translateY(-2px); }
+.validate-btn:disabled{ background:rgba(255,46,99,.3); cursor:not-allowed; transform:none; }
+
+/* MODAL */
+.modal{ position:fixed; inset:0; background:rgba(0,0,0,.7); display:none; align-items:center; justify-content:center; z-index:999; }
+.modal.active{ display:flex; }
+.modal-box{ width:90%; max-width:420px; background:var(--card); border-radius:24px; padding:30px; border:1px solid rgba(255,255,255,.08); }
+.modal-box h2{ margin-bottom:12px; }
+.modal-box p{ color:var(--muted); margin-bottom:20px; line-height:1.6; }
+.modal-box input{ width:100%; padding:14px; border-radius:12px; border:1px solid rgba(255,255,255,.08); background:#0f0f18; color:white; outline:none; margin-bottom:18px; }
+.modal-actions{ display:flex; gap:10px; }
+.modal-actions button{ flex:1; padding:13px; border:none; border-radius:14px; cursor:pointer; font-weight:600; }
+.cancel-btn{ background:#1d1d2d; color:white; }
+.save-btn{ background:var(--primary); color:white; }
+
+/* CONFIRM MODAL */
+.confirm-box{ width:90%; max-width:380px; background:var(--card); border-radius:24px; padding:30px; border:1px solid rgba(255,255,255,.08); text-align:center; }
+.confirm-box h2{ margin-bottom:12px; }
+.confirm-box p{ color:var(--muted); margin-bottom:24px; line-height:1.6; }
+.confirm-actions{ display:flex; gap:10px; }
+.confirm-actions button{ flex:1; padding:13px; border:none; border-radius:14px; cursor:pointer; font-weight:600; }
+.confirm-no{ background:#1d1d2d; color:white; }
+.confirm-yes{ background:var(--danger); color:white; }
+
+/* SUCCESS TOAST */
+.success-popup{ position:fixed; bottom:30px; left:50%; transform:translateX(-50%) translateY(100px); background:#0f2a1f; border:1px solid rgba(25,195,125,.3); color:var(--success); padding:16px 28px; border-radius:50px; font-size:15px; font-weight:600; display:flex; align-items:center; gap:10px; z-index:9999; transition:transform 0.4s cubic-bezier(0.175,0.885,0.32,1.275),opacity 0.4s; opacity:0; white-space:nowrap; box-shadow:0 8px 32px rgba(0,0,0,.4); }
+.success-popup.show{ transform:translateX(-50%) translateY(0); opacity:1; }
+
+@media(max-width:700px){
+  nav{ padding:20px; }
+  .container{ grid-template-columns:1fr; }
+  .sidebar{ display:none; }
+  .social-item{ flex-direction:column; align-items:flex-start; gap:14px; }
+  .social-right{ width:100%; justify-content:space-between; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">InfluenceX</div>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="#" id="logoutBtn">Logout</a>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="profile">
+      <div class="avatar" id="avatarLetter">C</div>
+      <h3 id="creatorName">Creator</h3>
+      <p>Welcome back 👋</p>
+      <div class="user-email" id="creatorEmail">loading...</div>
+    </div>
+    <div class="menu">
+      <button onclick="window.location.href='creator_dashboard.html'">Dashboard</button>
+      <button onclick="window.location.href='creator_dashboard.html'">Complete Profile</button>
+      <button class="active">Connect Accounts</button>
+      <button onclick="window.location.href='creator_payment.html'">Payments</button>
+      <button onclick="window.location.href='creator_referral.html'">Referrals</button>
+      <button onclick="window.location.href='creator_dashboard.html'">Profile Card</button>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <div class="hero">
+      <h1>Connect Your Accounts</h1>
+      <p>Connect your social media accounts to verify your creator identity, improve your profile visibility and unlock more collaboration opportunities with brands on InfluenceX.</p>
+    </div>
+
+    <div class="accounts-card">
+      <div class="section-title">
+        <h2>Connect Social Accounts</h2>
+        <div class="badge">Recommended</div>
+      </div>
+
+      <div class="social-list">
+
+        <!-- INSTAGRAM -->
+        <div class="social-item">
+          <div class="social-left">
+            <div class="social-icon">📸</div>
+            <div class="social-info"><h3>Instagram</h3><p>Connect your Instagram creator profile</p></div>
+          </div>
+          <div class="social-right">
+            <div class="connected-state" id="instagramConnected">
+              <span class="connected-badge">✓ Connected</span>
+              <span class="handle" id="instagramHandle"></span>
+              <button class="icon-btn edit" onclick="openModal('Instagram', true)" title="Edit">✏️</button>
+              <button class="icon-btn remove" onclick="openConfirm('Instagram')" title="Remove">🗑️</button>
+            </div>
+            <button class="connect-trigger connect-btn" onclick="openModal('Instagram')" id="instagramBtn">Connect</button>
+          </div>
+        </div>
+
+        <!-- TIKTOK -->
+        <div class="social-item">
+          <div class="social-left">
+            <div class="social-icon">🎵</div>
+            <div class="social-info"><h3>TikTok</h3><p>Add your TikTok creator handle</p></div>
+          </div>
+          <div class="social-right">
+            <div class="connected-state" id="tiktokConnected">
+              <span class="connected-badge">✓ Connected</span>
+              <span class="handle" id="tiktokHandle"></span>
+              <button class="icon-btn edit" onclick="openModal('TikTok', true)" title="Edit">✏️</button>
+              <button class="icon-btn remove" onclick="openConfirm('TikTok')" title="Remove">🗑️</button>
+            </div>
+            <button class="connect-trigger connect-btn" onclick="openModal('TikTok')" id="tiktokBtn">Connect</button>
+          </div>
+        </div>
+
+        <!-- YOUTUBE -->
+        <div class="social-item">
+          <div class="social-left">
+            <div class="social-icon">▶️</div>
+            <div class="social-info"><h3>YouTube</h3><p>Connect your YouTube channel</p></div>
+          </div>
+          <div class="social-right">
+            <div class="connected-state" id="youtubeConnected">
+              <span class="connected-badge">✓ Connected</span>
+              <span class="handle" id="youtubeHandle"></span>
+              <button class="icon-btn edit" onclick="openModal('YouTube', true)" title="Edit">✏️</button>
+              <button class="icon-btn remove" onclick="openConfirm('YouTube')" title="Remove">🗑️</button>
+            </div>
+            <button class="connect-trigger connect-btn" onclick="openModal('YouTube')" id="youtubeBtn">Connect</button>
+          </div>
+        </div>
+
+        <!-- X -->
+        <div class="social-item">
+          <div class="social-left">
+            <div class="social-icon">✖️</div>
+            <div class="social-info"><h3>X</h3><p>Add your X / Twitter handle</p></div>
+          </div>
+          <div class="social-right">
+            <div class="connected-state" id="xConnected">
+              <span class="connected-badge">✓ Connected</span>
+              <span class="handle" id="xHandle"></span>
+              <button class="icon-btn edit" onclick="openModal('X', true)" title="Edit">✏️</button>
+              <button class="icon-btn remove" onclick="openConfirm('X')" title="Remove">🗑️</button>
+            </div>
+            <button class="connect-trigger connect-btn" onclick="openModal('X')" id="xBtn">Add</button>
+          </div>
+        </div>
+
+        <!-- TWITCH -->
+        <div class="social-item">
+          <div class="social-left">
+            <div class="social-icon">🎮</div>
+            <div class="social-info"><h3>Twitch</h3><p>Connect your streaming profile</p></div>
+          </div>
+          <div class="social-right">
+            <div class="connected-state" id="twitchConnected">
+              <span class="connected-badge">✓ Connected</span>
+              <span class="handle" id="twitchHandle"></span>
+              <button class="icon-btn edit" onclick="openModal('Twitch', true)" title="Edit">✏️</button>
+              <button class="icon-btn remove" onclick="openConfirm('Twitch')" title="Remove">🗑️</button>
+            </div>
+            <button class="connect-trigger connect-btn" onclick="openModal('Twitch')" id="twitchBtn">Add</button>
+          </div>
+        </div>
+
+        <!-- PINTEREST -->
+        <div class="social-item">
+          <div class="social-left">
+            <div class="social-icon">📌</div>
+            <div class="social-info"><h3>Pinterest</h3><p>Add your Pinterest creator page</p></div>
+          </div>
+          <div class="social-right">
+            <div class="connected-state" id="pinterestConnected">
+              <span class="connected-badge">✓ Connected</span>
+              <span class="handle" id="pinterestHandle"></span>
+              <button class="icon-btn edit" onclick="openModal('Pinterest', true)" title="Edit">✏️</button>
+              <button class="icon-btn remove" onclick="openConfirm('Pinterest')" title="Remove">🗑️</button>
+            </div>
+            <button class="connect-trigger connect-btn" onclick="openModal('Pinterest')" id="pinterestBtn">Add</button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="bottom-actions">
+        <button class="skip-btn" onclick="window.location.href='creator_dashboard.html'">Skip for now</button>
+        <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
+          <span id="validateError" style="color:#ff4f4f; font-size:13px; display:none;">⚠️ Please connect at least one account to continue.</span>
+          <button class="validate-btn" id="validateBtn" onclick="handleValidate()">Validate</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONNECT / EDIT MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <h2 id="modalTitle">Connect Account</h2>
+    <p id="modalDesc">Enter your social media username or profile link.</p>
+    <input type="text" id="socialInput" placeholder="@username">
+    <div class="modal-actions">
+      <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+      <button class="save-btn" onclick="saveSocial()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- REMOVE CONFIRM MODAL -->
+<div class="modal" id="confirmModal">
+  <div class="confirm-box">
+    <h2>Remove Account?</h2>
+    <p id="confirmText">Are you sure you want to remove this account?</p>
+    <div class="confirm-actions">
+      <button class="confirm-no" onclick="closeConfirm()">Cancel</button>
+      <button class="confirm-yes" onclick="confirmRemove()">Remove</button>
+    </div>
+  </div>
+</div>
+
+<!-- SUCCESS TOAST -->
+<div class="success-popup" id="successPopup">
+  <span style="font-size:20px;">✅</span>
+  Accounts validated successfully!
+</div>
+
+<!-- FIREBASE -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBRUQhirkr0YyDaiU7XoaNHZT5v0jLcFO4",
+  authDomain: "influencex-2302a.firebaseapp.com",
+  projectId: "influencex-2302a",
+  storageBucket: "influencex-2302a.firebasestorage.app",
+  messagingSenderId: "974344728489",
+  appId: "1:974344728489:web:be5d35264cce608db11eb8"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+onAuthStateChanged(auth, async (user) => {
+  if (!user) { window.location.href = "creator_login.html"; return; }
+  if (!user.emailVerified) {
+    alert("Please verify your email first.");
+    await signOut(auth);
+    window.location.href = "creator_login.html";
+    return;
+  }
+  try {
+    const docSnap = await getDoc(doc(db, "users", user.uid));
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      document.getElementById("creatorName").innerText = data.name || "Creator";
+      document.getElementById("creatorEmail").innerText = data.email || "";
+      document.getElementById("avatarLetter").innerText = data.name ? data.name.charAt(0).toUpperCase() : "C";
+    }
+  } catch(e) { console.error(e); }
+});
+
+document.getElementById("logoutBtn").addEventListener("click", async () => {
+  await signOut(auth);
+  window.location.href = "creator_login.html";
+});
+</script>
+
+<script>
+let currentPlatform = "";
+let platformToRemove = "";
+
+function openModal(platform, editing = false) {
+  currentPlatform = platform;
+  const key = platform.toLowerCase();
+  document.getElementById("modal").classList.add("active");
+  document.getElementById("modalTitle").innerText = editing ? `Edit ${platform}` : `Connect ${platform}`;
+  document.getElementById("modalDesc").innerText = editing
+    ? "Update your username or profile link below."
+    : "Enter your social media username or profile link.";
+  document.getElementById("socialInput").value = localStorage.getItem(key) || "";
+}
+
+function closeModal() { document.getElementById("modal").classList.remove("active"); }
+
+function saveSocial() {
+  const value = document.getElementById("socialInput").value;
+  if (value.trim() === "") { alert("Please enter a username"); return; }
+  const key = currentPlatform.toLowerCase();
+  localStorage.setItem(key, value);
+  updateSocial(key, value);
+  closeModal();
+}
+
+function openConfirm(platform) {
+  platformToRemove = platform;
+  document.getElementById("confirmText").innerText =
+    `Are you sure you want to remove your ${platform} account? You can reconnect it at any time.`;
+  document.getElementById("confirmModal").classList.add("active");
+}
+
+function closeConfirm() { document.getElementById("confirmModal").classList.remove("active"); }
+
+function confirmRemove() {
+  const key = platformToRemove.toLowerCase();
+  localStorage.removeItem(key);
+  removeSocial(key);
+  closeConfirm();
+}
+
+function updateSocial(platform, value) {
+  document.getElementById(platform + "Handle").innerText = value;
+  document.getElementById(platform + "Connected").classList.add("visible");
+  document.getElementById(platform + "Btn").classList.add("hidden");
+}
+
+function removeSocial(platform) {
+  document.getElementById(platform + "Handle").innerText = "";
+  document.getElementById(platform + "Connected").classList.remove("visible");
+  document.getElementById(platform + "Btn").classList.remove("hidden");
+}
+
+function loadSocials() {
+  ["instagram","tiktok","youtube","x","twitch","pinterest"].forEach(p => {
+    const v = localStorage.getItem(p);
+    if (v) updateSocial(p, v);
+  });
+}
+
+function handleValidate() {
+  const platforms = ["instagram","tiktok","youtube","x","twitch","pinterest"];
+  const anyConnected = platforms.some(p => localStorage.getItem(p));
+  const errorMsg = document.getElementById("validateError");
+  const btn = document.getElementById("validateBtn");
+
+  if (!anyConnected) {
+    errorMsg.style.display = "block";
+    btn.style.transition = "transform 0.1s";
+    btn.style.transform = "translateX(-6px)";
+    setTimeout(() => btn.style.transform = "translateX(6px)", 100);
+    setTimeout(() => btn.style.transform = "translateX(-4px)", 200);
+    setTimeout(() => btn.style.transform = "translateX(0)", 300);
+    return;
+  }
+
+  errorMsg.style.display = "none";
+  btn.disabled = true;
+  btn.innerHTML = `<span style="display:inline-flex;align-items:center;gap:8px;">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+      <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83">
+        <animateTransform attributeName="transform" type="rotate" from="0 12 12" to="360 12 12" dur="0.8s" repeatCount="indefinite"/>
+      </path>
+    </svg>
+    Validating...
+  </span>`;
+
+  setTimeout(() => {
+    btn.disabled = false;
+    btn.innerHTML = "Validate";
+    const popup = document.getElementById("successPopup");
+    popup.classList.add("show");
+    setTimeout(() => popup.classList.remove("show"), 3000);
+  }, 1800);
+}
+
+loadSocials();
+</script>
+
+</body>
+</html>

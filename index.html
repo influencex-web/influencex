@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InfluenceX — Where Creators Meet Brands</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- CUSTOM CURSOR -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-follower" id="cursorFollower"></div>
+
+  <!-- NOISE OVERLAY -->
+  <div class="noise-overlay"></div>
+
+  <!-- NAVBAR -->
+  <header class="navbar" id="navbar">
+    <div class="nav-inner">
+      <div class="logo">
+        <span class="logo-icon">✦</span>
+        InfluenceX
+      </div>
+
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="influencers.html" class="nav-link">Influencers</a>
+        <a href="brands.html" class="nav-link">Brands</a>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <div class="nav-dropdown">
+          <a href="#" class="nav-link dropdown-trigger">
+            Login
+            <svg width="10" height="6" viewBox="0 0 10 6" fill="none">
+              <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </a>
+          <div class="dropdown-menu">
+            <a href="creator_login.html" class="dropdown-item">
+              <span class="dropdown-icon">🎨</span>
+              <div>
+                <div class="dropdown-title">For Creators</div>
+                <div class="dropdown-sub">Build & monetize</div>
+              </div>
+            </a>
+            <a href="business-login.html" class="dropdown-item">
+              <span class="dropdown-icon">🏢</span>
+              <div>
+                <div class="dropdown-title">For Businesses</div>
+                <div class="dropdown-sub">Launch campaigns</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </nav>
+
+      <div class="nav-right">
+        <button class="nav-btn" id="joinBtn">
+          <span>Join Now</span>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M2 7H12M8 3L12 7L8 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="influencers.html">Influencers</a>
+    <a href="brands.html">Brands</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="creator_login.html">Creator Login</a>
+    <a href="temp_business_dashboard.html">Business Login</a>
+    <a href="creator_signup.html" class="mobile-cta">Get Started Free →</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <!-- Animated background grid -->
+    <div class="hero-grid"></div>
+
+    <!-- Floating orbs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <!-- Floating badges -->
+    <div class="floating-badge badge-1">
+      <span class="badge-dot"></span>
+      <span>12 new deals today</span>
+    </div>
+    <div class="floating-badge badge-2">
+      <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=32&h=32&fit=crop&crop=face" alt="">
+      <span>+3K creators joined</span>
+    </div>
+
+    <div class="hero-content" id="heroContent">
+      <div class="hero-eyebrow">
+        <span class="eyebrow-dot"></span>
+        <span>Trusted by 10K+ creators & brands</span>
+        <span class="eyebrow-sep">|</span>
+        <span class="eyebrow-live">LIVE</span>
+      </div>
+
+      <h1 class="hero-title">
+        <span class="title-line line-1">Connect Brands</span>
+        <span class="title-line line-2">
+          <em>With Creators</em>
+          <span class="title-underline"></span>
+        </span>
+      </h1>
+
+      <p class="hero-desc">
+        Discover influencers, launch campaigns, and scale your brand 
+        with the next generation creator marketplace.
+      </p>
+
+      <div class="hero-actions">
+        <a href="temp_business_dashboard.html" class="btn-primary">
+          <span>Hire Influencers</span>
+          <div class="btn-shine"></div>
+        </a>
+        <a href="creator_signup.html" class="btn-outline">
+          <span>Become a Creator</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8H13M9 4L13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Search -->
+      <div class="search-container">
+        <div class="search-input-wrap">
+          <svg class="search-svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <circle cx="8" cy="8" r="5.5" stroke="#ff2e63" stroke-width="1.5"/>
+            <path d="M12.5 12.5L16 16" stroke="#ff2e63" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <div class="typing-text" id="typing"></div>
+          <div class="typing-cursor"></div>
+        </div>
+        <button class="search-btn">Search</button>
+      </div>
+
+      <!-- Social proof row -->
+      <div class="social-proof">
+        <div class="proof-avatars">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=32&h=32&fit=crop&crop=face" alt="">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=32&h=32&fit=crop&crop=face" alt="">
+          <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=32&h=32&fit=crop&crop=face" alt="">
+          <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=32&h=32&fit=crop&crop=face" alt="">
+          <span class="proof-more">+9K</span>
+        </div>
+        <span class="proof-text">Creators already earning on InfluenceX</span>
+        <div class="proof-stars">★★★★★ <span>4.9/5</span></div>
+      </div>
+    </div>
+
+    <div class="hero-visual" id="heroVisual">
+      <div class="hero-card-glow"></div>
+      <div class="hero-img-wrap">
+        <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=900&auto=format&fit=crop" alt="Creator" class="hero-img">
+        
+        <!-- Floating stat cards -->
+        <div class="stat-float stat-float-1">
+          <div class="stat-float-icon">📈</div>
+          <div>
+            <div class="stat-float-num">+240%</div>
+            <div class="stat-float-label">Avg. brand reach</div>
+          </div>
+        </div>
+        <div class="stat-float stat-float-2">
+          <div class="stat-float-icon">💸</div>
+          <div>
+            <div class="stat-float-num">$4.2M</div>
+            <div class="stat-float-label">Creator earnings</div>
+          </div>
+        </div>
+        <div class="stat-float stat-float-3">
+          <div class="stat-float-icon">🤝</div>
+          <div>
+            <div class="stat-float-num">1,240</div>
+            <div class="stat-float-label">Active deals</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGO MARQUEE (Trust bar) -->
+  <section class="trust-bar">
+    <div class="trust-label">Trusted by leading brands</div>
+    <div class="trust-track-wrap">
+      <div class="trust-track">
+        <span>Nike</span><span>Sephora</span><span>Adobe</span><span>Spotify</span><span>Samsung</span><span>Glossier</span><span>Notion</span><span>Gymshark</span><span>Revolve</span><span>HubSpot</span>
+        <!-- Duplicate -->
+        <span>Nike</span><span>Sephora</span><span>Adobe</span><span>Spotify</span><span>Samsung</span><span>Glossier</span><span>Notion</span><span>Gymshark</span><span>Revolve</span><span>HubSpot</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT WE DO -->
+  <section class="services-section" id="services">
+    <div class="section-bg-glow glow-red"></div>
+    <div class="section-bg-glow glow-purple"></div>
+
+    <div class="section-header">
+      <div class="section-tag">WHAT WE DO</div>
+      <h2>Everything You Need To <span class="grad-text">Collaborate</span></h2>
+      <p>InfluenceX helps brands discover creators, launch campaigns and scale collaborations effortlessly.</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card" data-index="0">
+        <div class="card-number">01</div>
+        <div class="service-icon-wrap">
+          <div class="service-icon">🎯</div>
+        </div>
+        <h3>Connect Brands With Creators</h3>
+        <p>Helping businesses discover the perfect influencers for their campaigns through smart AI matching.</p>
+        <div class="card-arrow">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M4 10H16M12 6L16 10L12 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="card-border-glow"></div>
+      </div>
+
+      <div class="service-card" data-index="1">
+        <div class="card-number">02</div>
+        <div class="service-icon-wrap">
+          <div class="service-icon">📈</div>
+        </div>
+        <h3>Grow Creator Opportunities</h3>
+        <p>Giving influencers access to brand partnerships and paid promotions that match their audience.</p>
+        <div class="card-arrow">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M4 10H16M12 6L16 10L12 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="card-border-glow"></div>
+      </div>
+
+      <div class="service-card" data-index="2">
+        <div class="card-number">03</div>
+        <div class="service-icon-wrap">
+          <div class="service-icon">💳</div>
+        </div>
+        <h3>Secure & Simple Payments</h3>
+        <p>Making creator payments and brand transactions smooth, safe, and hassle-free with escrow protection.</p>
+        <div class="card-arrow">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M4 10H16M12 6L16 10L12 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="card-border-glow"></div>
+      </div>
+
+      <div class="service-card" data-index="3">
+        <div class="card-number">04</div>
+        <div class="service-icon-wrap">
+          <div class="service-icon">🚀</div>
+        </div>
+        <h3>Boost Brand Reach & Engagement</h3>
+        <p>Helping brands increase visibility, audience trust, and social media growth with real analytics.</p>
+        <div class="card-arrow">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M4 10H16M12 6L16 10L12 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="card-border-glow"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="workflow-section" id="workflow">
+    <div class="section-header">
+      <div class="section-tag">HOW IT WORKS</div>
+      <h2>Built For Both <span class="grad-text">Brands & Creators</span></h2>
+      <p>Launch campaigns, connect with creators and grow faster — all in one powerful platform.</p>
+    </div>
+
+    <div class="workflow-tabs">
+      <button class="tab-btn active" data-tab="brands">🏢 For Brands</button>
+      <button class="tab-btn" data-tab="creators">🎨 For Creators</button>
+    </div>
+
+    <div class="workflow-content">
+      <!-- BRANDS PANEL -->
+      <div class="workflow-panel active" id="tab-brands">
+        <div class="workflow-visual">
+          <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=600&auto=format&fit=crop" alt="Brand dashboard">
+          <div class="visual-badge">
+            <span>🚀 Campaign Live</span>
+          </div>
+        </div>
+        <div class="workflow-steps">
+          <div class="wf-step" data-step="1">
+            <div class="wf-num">01</div>
+            <div class="wf-body">
+              <h3>Post Campaign</h3>
+              <p>Create your influencer campaign in minutes with our guided builder. Set goals, budget, and timeline.</p>
+            </div>
+            <div class="wf-connector"></div>
+          </div>
+          <div class="wf-step" data-step="2">
+            <div class="wf-num">02</div>
+            <div class="wf-body">
+              <h3>Discover Creators</h3>
+              <p>Find verified influencers tailored to your niche using AI-powered filters and audience analytics.</p>
+            </div>
+            <div class="wf-connector"></div>
+          </div>
+          <div class="wf-step" data-step="3">
+            <div class="wf-num">03</div>
+            <div class="wf-body">
+              <h3>Launch Campaign</h3>
+              <p>Collaborate seamlessly, manage deliverables, and communicate directly within the platform.</p>
+            </div>
+            <div class="wf-connector"></div>
+          </div>
+          <div class="wf-step" data-step="4">
+            <div class="wf-num">04</div>
+            <div class="wf-body">
+              <h3>Track Results</h3>
+              <p>Monitor real-time performance, ROI dashboards, engagement rates, and conversion metrics.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CREATORS PANEL -->
+      <div class="workflow-panel" id="tab-creators">
+        <div class="workflow-visual">
+          <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=600&auto=format&fit=crop" alt="Creator profile">
+          <div class="visual-badge">
+            <span>💰 New Offer!</span>
+          </div>
+        </div>
+        <div class="workflow-steps">
+          <div class="wf-step" data-step="1">
+            <div class="wf-num">01</div>
+            <div class="wf-body">
+              <h3>Create Profile</h3>
+              <p>Build your creator account on InfluenceX in under 5 minutes. Showcase your niche and audience.</p>
+            </div>
+            <div class="wf-connector"></div>
+          </div>
+          <div class="wf-step" data-step="2">
+            <div class="wf-num">02</div>
+            <div class="wf-body">
+              <h3>Connect Social Accounts</h3>
+              <p>Link Instagram, YouTube, TikTok, X and more. We verify your stats automatically.</p>
+            </div>
+            <div class="wf-connector"></div>
+          </div>
+          <div class="wf-step" data-step="3">
+            <div class="wf-num">03</div>
+            <div class="wf-body">
+              <h3>Receive Offers</h3>
+              <p>Connect with brands that match your content style. Accept deals on your terms.</p>
+            </div>
+            <div class="wf-connector"></div>
+          </div>
+          <div class="wf-step" data-step="4">
+            <div class="wf-num">04</div>
+            <div class="wf-body">
+              <h3>Earn Money</h3>
+              <p>Collaborate, grow your audience and monetize your content with secure milestone payments.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CREATOR CATEGORIES -->
+  <section class="categories-section" id="categories">
+    <div class="section-header">
+      <div class="section-tag">CREATOR CATEGORIES</div>
+      <h2>Trending by <span class="grad-text">Niche</span></h2>
+      <p>Discover influencers across every major content category.</p>
+    </div>
+
+    <div class="categories-grid">
+      <div class="cat-card" style="--delay:0s">
+        <div class="cat-emoji">🎥</div>
+        <div class="cat-name">Fitness</div>
+        <div class="cat-count">2,400 creators</div>
+      </div>
+      <div class="cat-card" style="--delay:0.05s">
+        <div class="cat-emoji">👗</div>
+        <div class="cat-name">Fashion</div>
+        <div class="cat-count">3,100 creators</div>
+      </div>
+      <div class="cat-card" style="--delay:0.1s">
+        <div class="cat-emoji">📱</div>
+        <div class="cat-name">Tech</div>
+        <div class="cat-count">1,800 creators</div>
+      </div>
+      <div class="cat-card" style="--delay:0.15s">
+        <div class="cat-emoji">💄</div>
+        <div class="cat-name">Beauty</div>
+        <div class="cat-count">2,900 creators</div>
+      </div>
+      <div class="cat-card" style="--delay:0.2s">
+        <div class="cat-emoji">🍔</div>
+        <div class="cat-name">Food</div>
+        <div class="cat-count">1,600 creators</div>
+      </div>
+      <div class="cat-card" style="--delay:0.25s">
+        <div class="cat-emoji">✈️</div>
+        <div class="cat-name">Travel</div>
+        <div class="cat-count">2,200 creators</div>
+      </div>
+      <div class="cat-card" style="--delay:0.3s">
+        <div class="cat-emoji">🎮</div>
+        <div class="cat-name">Gaming</div>
+        <div class="cat-count">3,400 creators</div>
+      </div>
+      <div class="cat-card" style="--delay:0.35s">
+        <div class="cat-emoji">🎵</div>
+        <div class="cat-name">Music</div>
+        <div class="cat-count">1,900 creators</div>
+      </div>
+      <div class="cat-card" style="--delay:0.4s">
+        <div class="cat-emoji">📸</div>
+        <div class="cat-name">Photography</div>
+        <div class="cat-count">1,200 creators</div>
+      </div>
+      <div class="cat-card" style="--delay:0.45s">
+        <div class="cat-emoji">🏠</div>
+        <div class="cat-name">Lifestyle</div>
+        <div class="cat-count">2,700 creators</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLATFORM STATS -->
+  <section class="stats-section" id="stats">
+    <div class="stats-bg">
+      <div class="stats-orb"></div>
+    </div>
+    <div class="section-header">
+      <div class="section-tag">PLATFORM GROWTH</div>
+      <h2>Built For <span class="grad-text">Scale</span></h2>
+      <p>Real numbers that show how InfluenceX is transforming influencer marketing.</p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-icon">👥</div>
+        <div class="stat-num" data-target="10000">0</div>
+        <div class="stat-suffix"></div>
+        <div class="stat-label">Creators Network Goal</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon">🏢</div>
+        <div class="stat-num" data-target="500">0</div>
+        <div class="stat-suffix">+</div>
+        <div class="stat-label">Brand Partnerships Vision</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon">🚀</div>
+        <div class="stat-num" data-target="200">0</div>
+        <div class="stat-suffix">+</div>
+        <div class="stat-label">Campaign Opportunities</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon">⭐</div>
+        <div class="stat-num" data-target="95">0</div>
+        <div class="stat-suffix">%</div>
+        <div class="stat-label">Creator Satisfaction Target</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials-section" id="testimonials">
+    <div class="section-header">
+      <div class="section-tag">TESTIMONIALS</div>
+      <h2>What People <span class="grad-text">Are Saying</span></h2>
+      <p>Real stories from creators and brands growing with InfluenceX.</p>
+    </div>
+
+    <div class="testimonials-track-wrap">
+      <div class="testimonials-track">
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p>"InfluenceX completely changed how I monetize my content. I signed 3 brand deals in my first week and the payment process was seamless."</p>
+          <div class="testi-author">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=48&h=48&fit=crop&crop=face" alt="">
+            <div>
+              <div class="testi-name">Sofia Chen</div>
+              <div class="testi-role">Lifestyle Creator • 180K followers</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p>"We found 12 perfect micro-influencers for our product launch within 24 hours. The ROI tracking dashboard is genuinely game-changing."</p>
+          <div class="testi-author">
+            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=48&h=48&fit=crop&crop=face" alt="">
+            <div>
+              <div class="testi-name">Marcus Reid</div>
+              <div class="testi-role">Head of Marketing • TechCo</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p>"As a fitness creator, I struggled to land brand deals. InfluenceX connected me with brands that actually match my audience's values."</p>
+          <div class="testi-author">
+            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=48&h=48&fit=crop&crop=face" alt="">
+            <div>
+              <div class="testi-name">Priya Nair</div>
+              <div class="testi-role">Fitness Creator • 92K followers</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p>"The platform is incredibly intuitive. We launched our first influencer campaign in under an hour and exceeded our reach goals by 3x."</p>
+          <div class="testi-author">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=48&h=48&fit=crop&crop=face" alt="">
+            <div>
+              <div class="testi-name">Aisha Williams</div>
+              <div class="testi-role">Brand Manager • Glowly</div>
+            </div>
+          </div>
+        </div>
+        <!-- Duplicates for loop -->
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p>"InfluenceX completely changed how I monetize my content. I signed 3 brand deals in my first week and the payment process was seamless."</p>
+          <div class="testi-author">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=48&h=48&fit=crop&crop=face" alt="">
+            <div>
+              <div class="testi-name">Sofia Chen</div>
+              <div class="testi-role">Lifestyle Creator • 180K followers</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p>"We found 12 perfect micro-influencers for our product launch within 24 hours. The ROI tracking dashboard is genuinely game-changing."</p>
+          <div class="testi-author">
+            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=48&h=48&fit=crop&crop=face" alt="">
+            <div>
+              <div class="testi-name">Marcus Reid</div>
+              <div class="testi-role">Head of Marketing • TechCo</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section" id="faq">
+    <div class="section-header">
+      <div class="section-tag">FAQ</div>
+      <h2>Frequently Asked <span class="grad-text">Questions</span></h2>
+      <p>Everything you need to know about InfluenceX before getting started.</p>
+    </div>
+
+    <div class="faq-container">
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>How does InfluenceX work for creators?</span>
+          <div class="faq-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M3 6L8 11L13 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Creators can join InfluenceX, build their profile with social stats, and immediately start receiving brand collaboration offers matched to their niche and audience. Payments are secured and released via milestones.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>How do brands find creators?</span>
+          <div class="faq-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M3 6L8 11L13 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Brands can explore creator profiles, use AI-powered filters by niche, follower count, engagement rate, and platform. Post a campaign and get matched instantly, or reach out directly to creators you love.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Is InfluenceX free to join?</span>
+          <div class="faq-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M3 6L8 11L13 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Yes, creators can join for free with no upfront costs. Brands can explore the platform and creators without setup fees. Premium features are available for scaling teams and power users.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>How do payments work?</span>
+          <div class="faq-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M3 6L8 11L13 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Payments are handled securely through milestone-based escrow releases. Funds are held safely until collaboration tasks are completed and approved, protecting both creators and brands.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Can I use multiple social platforms?</span>
+          <div class="faq-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M3 6L8 11L13 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Absolutely. Connect Instagram, YouTube, TikTok, X, LinkedIn, and more to maximize your reach and unlock more brand deal opportunities across all channels.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA SECTION -->
+  <section class="cta-section" id="cta">
+    <div class="cta-inner">
+      <div class="cta-orb cta-orb-1"></div>
+      <div class="cta-orb cta-orb-2"></div>
+      <div class="cta-badge">🔥 Limited spots available</div>
+      <h2>Ready To Grow <span>Your Brand?</span></h2>
+      <p>Join thousands of creators and businesses already winning on InfluenceX.</p>
+      <div class="cta-buttons">
+        <button class="btn-primary" id="ctaBtn">
+          <span>Get Started Free</span>
+          <div class="btn-shine"></div>
+        </button>
+        <a href="#workflow" class="btn-ghost">See how it works →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <span class="logo-icon">✦</span>
+          InfluenceX
+        </div>
+        <p>The next generation creator marketplace. Connecting brands and creators for authentic campaigns.</p>
+        <div class="subscribe-box">
+          <input type="email" placeholder="your@email.com" id="subscribeInput">
+          <button id="subscribeBtn">Subscribe</button>
+        </div>
+        <div class="footer-socials">
+          <a href="#" aria-label="Twitter/X">𝕏</a>
+          <a href="#" aria-label="Instagram">📸</a>
+          <a href="#" aria-label="LinkedIn">in</a>
+          <a href="#" aria-label="TikTok">♪</a>
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="#">About us</a>
+          <a href="#">Contact us</a>
+          <a href="#">Careers</a>
+          <a href="#">What we do</a>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <a href="#">Brand support</a>
+          <a href="#">Creator support</a>
+          <a href="#">Contact sales</a>
+          <a href="#">Creator sign up</a>
+          <a href="#">Partner program</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="#">Influencer brief</a>
+          <a href="#">Campaign ROI deck</a>
+          <a href="#">Email templates</a>
+          <a href="#">Marketing courses</a>
+          <a href="#">Blog</a>
+        </div>
+        <div class="footer-col">
+          <h4>Trust</h4>
+          <a href="#">Privacy policy</a>
+          <a href="#">Terms of service</a>
+          <a href="#">Responsible disclosure</a>
+          <a href="#">Acceptable use</a>
+          <a href="#">Fees policy</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 InfluenceX. All Rights Reserved.</span>
+      <span class="footer-tagline">Made with ❤️ for creators everywhere</span>
+    </div>
+  </footer>
+
+  <!-- JOIN POPUP -->
+  <div class="popup-overlay" id="popupOverlay">
+    <div class="popup-box" id="popupBox">
+      <button class="popup-close" id="popupClose">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M1 1L13 13M13 1L1 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <div class="popup-tag">Get Started</div>
+      <h3>Join InfluenceX as</h3>
+      <p>Choose your path below to get started for free.</p>
+      <div class="popup-options">
+        <a href="creator_signup.html" class="popup-option creator-option">
+          <div class="popup-option-icon">🎨</div>
+          <div>
+            <div class="popup-option-title">Creator</div>
+            <div class="popup-option-sub">Monetize your audience</div>
+          </div>
+          <svg class="popup-arrow" width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M4 9H14M10 5L14 9L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </a>
+        <a href="temp_business_dashboard.html" class="popup-option business-option">
+          <div class="popup-option-icon">🏢</div>
+          <div>
+            <div class="popup-option-title">Business</div>
+            <div class="popup-option-sub">Launch campaigns</div>
+          </div>
+          <svg class="popup-arrow" width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M4 9H14M10 5L14 9L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+
+  <!-- FIREBASE -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, query, where, getDocs, serverTimestamp }
+    from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBRUQhirkr0YyDaiU7XoaNHZT5v0jLcFO4",
+      authDomain: "influencex-2302a.firebaseapp.com",
+      projectId: "influencex-2302a",
+      storageBucket: "influencex-2302a.firebasestorage.app",
+      messagingSenderId: "974344728489",
+      appId: "1:974344728489:web:be5d35264cce608db11eb8"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    document.getElementById("subscribeBtn")?.addEventListener("click", async () => {
+      const input = document.getElementById("subscribeInput");
+      const email = input?.value.trim();
+      if (!email) { alert("Please enter an email"); return; }
+
+      try {
+        const q = query(collection(db, "subscribers"), where("email", "==", email));
+        const snap = await getDocs(q);
+        if (!snap.empty) { alert("Already subscribed!"); return; }
+        await addDoc(collection(db, "subscribers"), { email, createdAt: serverTimestamp() });
+        input.value = "";
+        alert("Subscribed successfully! 🎉");
+      } catch (err) {
+        console.error(err);
+        alert("Something went wrong");
+      }
+    });
+  </script>
+</body>
+</html>

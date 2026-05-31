@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Creator Login — InfluenceX</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --red:#ff2e63;
+  --purple:#7c3aed;
+  --bg:#080810;
+  --card:#0e0e1c;
+  --text:#eaeaf4;
+  --muted:rgba(255,255,255,0.55);
+  --border:rgba(255,255,255,0.08);
+  --grad:linear-gradient(135deg,var(--red),var(--purple));
+  --radius:14px;
+  --transition:0.3s ease;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:"DM Sans",sans-serif;}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* ORBS */
+.orb{
+  position:fixed;
+  border-radius:50%;
+  filter:blur(120px);
+  z-index:0;
+}
+.orb1{width:500px;height:500px;background:rgba(255,46,99,0.18);top:-150px;left:-120px;}
+.orb2{width:400px;height:400px;background:rgba(124,58,237,0.15);bottom:-120px;right:-100px;}
+
+/* NOISE */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  opacity:0.03;
+  pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* NAV */
+nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 6%;
+  position:relative;
+  z-index:2;
+}
+
+.logo{
+  font-family:"Syne";
+  font-weight:800;
+  color:#fff;
+  font-size:18px;
+}
+
+nav a{
+  color:var(--muted);
+  margin-left:20px;
+  text-decoration:none;
+  font-size:14px;
+}
+nav a:hover{color:#fff}
+
+/* LAYOUT */
+.wrapper{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:85vh;
+  padding:40px 6%;
+  position:relative;
+  z-index:2;
+}
+
+/* CARD */
+.card{
+  width:100%;
+  max-width:420px;
+  background:rgba(14,14,28,0.75);
+  border:1px solid var(--border);
+  backdrop-filter:blur(20px);
+  border-radius:18px;
+  padding:35px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.5);
+}
+
+h1{
+  font-family:"Syne";
+  font-size:26px;
+  margin-bottom:6px;
+}
+
+p{
+  color:var(--muted);
+  font-size:14px;
+  margin-bottom:25px;
+}
+
+/* INPUT */
+.input{
+  width:100%;
+  padding:12px 14px;
+  margin-bottom:14px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,0.04);
+  color:#fff;
+  outline:none;
+}
+
+.input:focus{
+  border-color:rgba(255,46,99,0.5);
+  box-shadow:0 0 0 3px rgba(255,46,99,0.1);
+}
+
+/* PASSWORD */
+.pass{
+  position:relative;
+}
+.eye{
+  position:absolute;
+  right:12px;
+  top:50%;
+  transform:translateY(-50%);
+  cursor:pointer;
+  color:var(--muted);
+}
+
+/* BUTTON */
+button{
+  width:100%;
+  padding:13px;
+  border:none;
+  border-radius:50px;
+  background:var(--grad);
+  color:#fff;
+  font-weight:700;
+  cursor:pointer;
+  transition:0.3s;
+  margin-top:10px;
+}
+button:hover{transform:translateY(-2px);}
+
+/* FOOT */
+.small{
+  text-align:center;
+  margin-top:15px;
+  font-size:13px;
+  color:var(--muted);
+}
+.small a{color:#ff6b81;text-decoration:none}
+
+/* FORGOT */
+.forgot{
+  text-align:center;
+  margin-top:10px;
+  font-size:13px;
+  color:#ff6b81;
+  cursor:pointer;
+}
+
+/* TOAST */
+.toast{
+  position:fixed;
+  bottom:30px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#111;
+  border:1px solid var(--border);
+  padding:12px 20px;
+  border-radius:40px;
+  color:#fff;
+  opacity:0;
+  transition:0.3s;
+  z-index:999;
+}
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(-10px);
+}
+</style>
+</head>
+
+<body>
+
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+
+<nav>
+  <div class="logo">✦ InfluenceX</div>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="creator_signup.html">Sign Up</a>
+  </div>
+</nav>
+
+<div class="wrapper">
+  <div class="card">
+
+    <h1>Welcome Back</h1>
+    <p>Login to your creator dashboard</p>
+
+    <form id="loginForm">
+
+      <input class="input" type="email" id="email" placeholder="Email Address" required>
+
+      <div class="pass">
+        <input class="input" type="password" id="password" placeholder="Password" required>
+        <span class="eye" id="toggle">👁</span>
+      </div>
+
+      <button type="submit" id="btn">Login →</button>
+
+    </form>
+
+    <div class="forgot" id="forgot">Forgot password?</div>
+
+    <div class="small">
+      New here? <a href="creator_signup.html">Create account</a>
+    </div>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail, signOut } 
+from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBRUQhirkr0YyDaiU7XoaNHZT5v0jLcFO4",
+  authDomain: "influencex-2302a.firebaseapp.com",
+  projectId: "influencex-2302a",
+  storageBucket: "influencex-2302a.firebasestorage.app",
+  messagingSenderId: "974344728489",
+  appId: "1:974344728489:web:be5d35264cce608db11eb8"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+const toast = document.getElementById("toast");
+
+function show(msg){
+  toast.textContent = msg;
+  toast.classList.add("show");
+  setTimeout(()=>toast.classList.remove("show"),3000);
+}
+
+document.getElementById("loginForm").addEventListener("submit", async (e)=>{
+  e.preventDefault();
+
+  const email = emailInput.value;
+  const password = passwordInput.value;
+
+  try{
+    const res = await signInWithEmailAndPassword(auth,email,password);
+
+    if(!res.user.emailVerified){
+      await signOut(auth);
+      return show("Please verify your email first");
+    }
+
+    show("Login successful 🚀");
+    setTimeout(()=>location.href="creator_dashboard.html",1500);
+
+  }catch(err){
+    show(err.message);
+  }
+});
+
+const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
+
+document.getElementById("toggle").onclick = ()=>{
+  passwordInput.type = passwordInput.type==="password"?"text":"password";
+};
+
+document.getElementById("forgot").onclick = async ()=>{
+  if(!emailInput.value) return show("Enter email first");
+  try{
+    await sendPasswordResetEmail(auth,emailInput.value);
+    show("Reset email sent");
+  }catch(e){
+    show(e.message);
+  }
+};
+</script>
+
+</body>
+</html>

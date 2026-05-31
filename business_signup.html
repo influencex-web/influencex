@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Business Sign Up</title>
+
+<style>
+:root {
+  --primary: #ff2e63;
+  --bg: #0b0b10;
+  --card: #141420;
+  --text: #eaeaf2;
+  --muted: #9aa0b4;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  background: radial-gradient(circle at top, #151526, var(--bg));
+  color: var(--text);
+}
+
+/* NAV */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 60px;
+}
+
+.logo {
+  color: var(--primary);
+  font-size: 22px;
+  font-weight: bold;
+}
+
+nav a {
+  color: var(--text);
+  text-decoration: none;
+  margin-left: 25px;
+  opacity: 0.8;
+}
+
+nav a:hover {
+  color: var(--primary);
+}
+
+/* CENTER */
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 80px);
+}
+
+/* CARD */
+.card {
+  background: var(--card);
+  padding: 40px;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 420px;
+}
+
+h1 {
+  color: var(--primary);
+  text-align: center;
+}
+
+p {
+  color: var(--muted);
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  background: #0f0f18;
+  color: white;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background: var(--primary);
+  border: none;
+  border-radius: 30px;
+  color: white;
+  cursor: pointer;
+}
+
+.small {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.small a {
+  color: var(--primary);
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">BusinessHub</div>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="signup.html">Creator Signup</a>
+  </div>
+</nav>
+
+<!-- SIGNUP -->
+<div class="wrapper">
+  <div class="card">
+    <h1>Business Account</h1>
+    <p>Create an account to hire creators</p>
+
+    <form>
+      <input type="text" placeholder="Business Name" required />
+      <input type="email" placeholder="Business Email" required />
+      <input type="password" placeholder="Password" required />
+      <input type="text" placeholder="Industry (e.g. Fashion, Tech)" required />
+
+      <button type="submit">Create Account</button>
+    </form>
+
+    <div class="small">
+      Already have an account? <a href="#">Login</a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

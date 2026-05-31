@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Dashboard</title>
+
+<style>
+:root {
+  --primary:#ff2e63;
+  --bg:#0b0b10;
+  --card:#141420;
+  --text:#eaeaf2;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: sans-serif;
+  margin:0;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width:220px;
+  height:100vh;
+  background: var(--card);
+  position:fixed;
+  padding:20px;
+}
+
+.sidebar h2 {
+  color: var(--primary);
+}
+
+.sidebar a {
+  display:block;
+  color:white;
+  margin:15px 0;
+  text-decoration:none;
+  opacity:0.6;
+  padding:8px;
+  border-radius:6px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.sidebar a.active {
+  background: rgba(255,46,99,0.15);
+  color: var(--primary);
+  opacity: 1;
+}
+
+/* MAIN */
+.main {
+  margin-left:240px;
+  padding:30px;
+}
+
+/* SECTIONS */
+.section {
+  display:none;
+}
+
+.section.active {
+  display:block;
+}
+
+/* CARDS */
+.cards {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:20px;
+}
+
+.card {
+  background:var(--card);
+  padding:20px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,0.05);
+}
+
+.card h3 {
+  color:var(--primary);
+}
+
+/* PROFILE CARD */
+.profile-card {
+  background: linear-gradient(135deg, #1a1a2e, #141420);
+  padding:25px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,0.08);
+  margin-top:20px;
+}
+
+.profile-card h2 {
+  color: var(--primary);
+  margin-bottom:10px;
+}
+
+.profile-tag {
+  display:inline-block;
+  padding:5px 10px;
+  background: rgba(255,46,99,0.15);
+  border-radius:20px;
+  font-size:12px;
+  margin-top:10px;
+}
+
+/* INPUTS */
+input, textarea {
+  width:100%;
+  padding:10px;
+  margin:8px 0;
+  background:#0f0f18;
+  border:1px solid rgba(255,255,255,0.1);
+  color:white;
+  border-radius:8px;
+}
+
+/* BUTTON */
+button {
+  background:var(--primary);
+  border:none;
+  padding:10px 15px;
+  border-radius:20px;
+  color:white;
+  cursor:pointer;
+  margin-top:10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <h2>Creator</h2>
+
+  <a class="nav active" onclick="showSection('dashboard', event)">Dashboard</a>
+  <a class="nav" onclick="showSection('portfolio', event)">Portfolio</a>
+  <a class="nav" onclick="showSection('profile', event)">Complete Profile</a>
+  <a class="nav" onclick="showSection('analytics', event)">Analytics</a>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="section active">
+
+  <h1>Dashboard</h1>
+
+  <div class="cards">
+    <div class="card">
+      <h3>Views</h3>
+      <p>12,430</p>
+    </div>
+
+    <div class="card">
+      <h3>Followers</h3>
+      <p id="followers">0</p>
+    </div>
+
+    <div class="card">
+      <h3>Earnings</h3>
+      <p>$320</p>
+    </div>
+  </div>
+
+  <!-- PROFILE CARD -->
+  <div class="profile-card">
+    <h2 id="nameCard">Creator</h2>
+    <p id="bioCard">Your bio will appear here</p>
+
+    <div class="profile-tag" id="nicheCard">Niche</div>
+
+    <p style="margin-top:10px;">
+      Instagram: <span id="instaCard"></span>
+    </p>
+  </div>
+
+</div>
+
+<!-- PORTFOLIO -->
+<div id="portfolio" class="section">
+  <h1>Portfolio</h1>
+  <p>Showcase your work here.</p>
+</div>
+
+<!-- PROFILE -->
+<div id="profile" class="section">
+
+  <h1>Complete Profile</h1>
+
+  <input id="nameInput" placeholder="Name">
+  <input id="nicheInput" placeholder="Niche">
+  <input id="instagramInput" placeholder="Instagram">
+  <textarea id="bioInput" placeholder="Bio"></textarea>
+  <input id="followersInput" placeholder="Followers">
+
+  <button id="saveBtn">Save Profile</button>
+
+</div>
+
+<!-- ANALYTICS -->
+<div id="analytics" class="section">
+
+  <h1>Analytics</h1>
+
+  <div class="cards">
+    <div class="card">
+      <h3>Profile Views</h3>
+      <p>2,340</p>
+    </div>
+
+    <div class="card">
+      <h3>Engagement</h3>
+      <p>4.8%</p>
+    </div>
+
+    <div class="card">
+      <h3>Growth</h3>
+      <p>+12%</p>
+    </div>
+  </div>
+
+</div>
+
+</div>
+
+<!-- FIREBASE -->
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBRUQhirkr0YyDaiU7XoaNHZT5v0jLcFO4",
+  authDomain: "influencex-2302a.firebaseapp.com",
+  projectId: "influencex-2302a",
+  storageBucket: "influencex-2302a.firebasestorage.app",
+  messagingSenderId: "974344728489",
+  appId: "1:974344728489:web:be5d35264cce608db11eb8"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+console.log("Dashboard loaded");
+
+/* SECTION SWITCH */
+window.showSection = function(id, event) {
+
+  document.querySelectorAll('.section')
+  .forEach(sec => sec.classList.remove('active'));
+
+  document.querySelectorAll('.nav')
+  .forEach(n => n.classList.remove('active'));
+
+  document.getElementById(id).classList.add('active');
+
+  if(event){
+    event.target.classList.add('active');
+  }
+};
+
+/* LOAD USER DATA */
+onAuthStateChanged(auth, async (user) => {
+
+  if (!user) {
+    window.location.href = "creator_login.html";
+    return;
+  }
+
+  const ref = doc(db, "users", user.uid);
+  const snap = await getDoc(ref);
+
+  if (snap.exists()) {
+
+    const data = snap.data();
+
+    document.getElementById("nameCard").innerText = data.name || "Creator";
+    document.getElementById("bioCard").innerText = data.bio || "No bio yet";
+    document.getElementById("nicheCard").innerText = data.niche || "Niche";
+    document.getElementById("instaCard").innerText = data.instagram || "-";
+    document.getElementById("followers").innerText = data.followers || "0";
+
+    document.getElementById("nameInput").value = data.name || "";
+    document.getElementById("bioInput").value = data.bio || "";
+    document.getElementById("nicheInput").value = data.niche || "";
+    document.getElementById("instagramInput").value = data.instagram || "";
+    document.getElementById("followersInput").value = data.followers || "";
+  }
+
+});
+
+/* SAVE PROFILE */
+document.getElementById("saveBtn").addEventListener("click", async () => {
+
+  const user = auth.currentUser;
+  if (!user) return;
+
+  await setDoc(doc(db, "users", user.uid), {
+
+    name: document.getElementById("nameInput").value,
+    bio: document.getElementById("bioInput").value,
+    niche: document.getElementById("nicheInput").value,
+    instagram: document.getElementById("instagramInput").value,
+    followers: document.getElementById("followersInput").value
+
+  }, { merge:true });
+
+  alert("Profile updated!");
+
+});
+
+</script>
+
+</body>
+</html>
