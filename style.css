@@ -1339,23 +1339,42 @@ img { display: block; max-width: 100%; }
   -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
   margin: 0 -6%;
   padding: 20px 0;
+  cursor: grab;
 }
 
+.testimonials-track-wrap:active {
+  cursor: grabbing;
+}
 .testimonials-track {
   display: flex;
   gap: 24px;
   width: max-content;
-  animation: testiScroll 30s linear infinite;
+  will-change: transform;
 }
 
-.testimonials-track:hover {
+/* .testimonials-track-wrap {
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  margin: 0 -6%;
+  padding: 20px 0;
+} */
+
+/* .testimonials-track {
+  display: flex;
+  gap: 24px;
+  width: max-content;
+  animation: testiScroll 30s linear infinite;
+} */
+
+/* .testimonials-track:hover {
   animation-play-state: paused;
 }
 
 @keyframes testiScroll {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
-}
+} */
 
 .testi-card {
   width: 360px;
@@ -1937,9 +1956,3 @@ footer {
   .logo {font-size: 18px;   /* slightly smaller logo text on mobile */ gap: 6px;  }
   .logo-icon {font-size: 11px;}
 }
-
-
-
-
-
-
