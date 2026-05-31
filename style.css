@@ -990,12 +990,12 @@ img { display: block; max-width: 100%; }
   margin-bottom: 24px;
 }
 
-.card-arrow {
+/* .card-arrow {
   color: var(--red);
   opacity: 0;
   transform: translateX(-6px);
   transition: var(--transition);
-}
+} */
 
 .service-card:hover .card-arrow {
   opacity: 1;
