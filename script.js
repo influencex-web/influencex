@@ -218,7 +218,7 @@ if (statsSection) {
 
 // ─── SCROLL REVEAL ──────────────────────────
 const revealEls = document.querySelectorAll(
-  '.service-card, .section-header, .cat-card, .stat-item, .testi-card, .faq-item, .wf-step, .workflow-visual'
+  '.service-card, .section-header, .cat-card, .stat-item, .faq-item, .wf-step, .workflow-visual'
 );
 
 revealEls.forEach(el => el.classList.add('reveal'));
@@ -299,3 +299,85 @@ document.querySelector('.search-btn')?.addEventListener('click', () => {
   // Connect to your search functionality here
   alert('Search feature coming soon!');
 });
+
+// ─── TESTIMONIALS INFINITE SCROLL ─────────────
+// ─── TESTIMONIALS INFINITE SCROLL ─────────────
+(function () {
+  const wrap = document.querySelector('.testimonials-track-wrap');
+  const track = document.querySelector('.testimonials-track');
+  if (!wrap || !track) return;
+
+  wrap.style.overflow = 'hidden';
+  wrap.style.cursor = 'grab';
+
+  const originals = Array.from(track.children);
+  const N = originals.length;
+
+  for (let i = 0; i < 5; i++) {
+    originals.forEach(card => {
+      const clone = card.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      track.appendChild(clone);
+    });
+  }
+
+  let pos = 0;
+  let setWidth = 0;
+  let isDragging = false;
+  let isHovered = false;
+  let startX = 0;
+  let startPos = 0;
+
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    setWidth = track.children[N].offsetLeft;
+
+    function tick() {
+      if (!isHovered && !isDragging) {
+        pos += 0.5;
+        if (pos >= setWidth) pos -= setWidth;
+      }
+      track.style.transform = `translateX(${-pos}px)`;
+      requestAnimationFrame(tick);
+    }
+    tick();
+  }));
+
+  wrap.addEventListener('mouseenter', () => isHovered = true);
+  wrap.addEventListener('mouseleave', () => { isHovered = false; isDragging = false; wrap.style.cursor = 'grab'; });
+
+  wrap.addEventListener('mousedown', (e) => {
+    isDragging = true; isHovered = true;
+    startX = e.pageX; startPos = pos;
+    wrap.style.cursor = 'grabbing';
+    e.preventDefault();
+  });
+
+  window.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    pos = startPos - (e.pageX - startX);
+    if (pos < 0) pos += setWidth;
+    if (pos >= setWidth) pos -= setWidth;
+    track.style.transform = `translateX(${-pos}px)`;
+  });
+
+  window.addEventListener('mouseup', () => {
+    if (!isDragging) return;
+    isDragging = false; isHovered = false;
+    wrap.style.cursor = 'grab';
+  });
+
+  wrap.addEventListener('touchstart', (e) => {
+    isDragging = true; isHovered = true;
+    startX = e.touches[0].pageX; startPos = pos;
+  }, { passive: true });
+
+  wrap.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    pos = startPos - (e.touches[0].pageX - startX);
+    if (pos < 0) pos += setWidth;
+    if (pos >= setWidth) pos -= setWidth;
+    track.style.transform = `translateX(${-pos}px)`;
+  }, { passive: true });
+
+  wrap.addEventListener('touchend', () => { isDragging = false; isHovered = false; });
+})();
