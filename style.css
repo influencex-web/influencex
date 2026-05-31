@@ -1952,7 +1952,7 @@ footer {
   .cta-inner { padding: 50px 24px; }
   .footer-links { grid-template-columns: 1fr 1fr; }
   .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
-  .nav-btn {padding: 6px 10px; font-size: 10px;  }
+  .nav-btn {padding: 6px 10px; font-size: 6px;  }
   .logo {font-size: 18px;   /* slightly smaller logo text on mobile */ gap: 6px;  }
   .logo-icon {font-size: 11px;}
 }
