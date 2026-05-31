@@ -340,7 +340,7 @@ background-size:128px 128px}
     <button class="nav-item" onclick="showSec('deals',this)">
       <span class="nav-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 10l4-4 3 3 5-6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       Brand Deals
-      <span class="nav-badge">3</span>
+      <span class="nav-badge">0</span>
     </button>
     <button class="nav-item" onclick="showSec('connect',this)">
       <span class="nav-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="4" cy="8" r="2.5" stroke="currentColor" stroke-width="1.4"/><circle cx="12" cy="4" r="2.5" stroke="currentColor" stroke-width="1.4"/><circle cx="12" cy="12" r="2.5" stroke="currentColor" stroke-width="1.4"/><path d="M6.5 8.8L9.5 11.2M6.5 7.2L9.5 4.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></span>
@@ -398,7 +398,7 @@ background-size:128px 128px}
       <div class="stat-card-bg"></div>
       <div class="stat-card-inner">
         <div class="s-icon r">📥</div>
-        <div class="s-num">3</div>
+        <div class="s-num">0</div>
         <div class="s-lbl">Deal Requests</div>
         <!-- <div class="s-delta neu">New</div> -->
       </div>
@@ -423,8 +423,8 @@ background-size:128px 128px}
     </div>
   </div>
 
-  <div class="dash-row">
-    <div class="card">
+  <!-- <div class="dash-row"> -->
+    <!-- <div class="card">
       <div class="card-title">Recent Brand Requests</div>
       <div class="card-sub">Brands waiting to work with you</div>
       <div class="deal-list">
@@ -432,7 +432,7 @@ background-size:128px 128px}
         <div class="deal-item"><div class="deal-ico">💄</div><div class="deal-info"><div class="deal-name">GlowCo — Stories Pack</div><div class="deal-meta">Beauty · ₹5,200 offer</div></div><div class="d-badge pen">Review</div></div>
         <div class="deal-item"><div class="deal-ico">🖥</div><div class="deal-info"><div class="deal-name">TechNova — YouTube Review</div><div class="deal-meta">Tech · Active deal</div></div><div class="d-badge act">Active</div></div>
       </div>
-    </div>
+    </div> -->
     <div class="card">
       <div class="card-title">Your Public Card Preview</div>
       <div class="card-sub">How brands see you right now</div>
@@ -454,7 +454,7 @@ background-size:128px 128px}
     </div>
   </div>
 
-  <div class="card">
+  <!-- <div class="card">
     <div class="card-title">Recent Activity</div>
     <div class="card-sub">What's happening on your account</div>
     <div class="act-list">
@@ -464,7 +464,7 @@ background-size:128px 128px}
       <div class="act-item"><div class="adot p"></div><div class="a-body"><div class="a-msg">Account verified successfully ✓</div><div class="a-time">2 days ago</div></div></div>
     </div>
   </div>
-</div>
+</div> -->
 
 <!-- ═══ EDIT PROFILE ═══ -->
 <div id="profile" class="section">
@@ -621,14 +621,21 @@ background-size:128px 128px}
   </div>
   <div class="card">
     <div class="card-title">Your Active & Pending Deals</div>
-    <div class="card-sub">3 deals waiting for your review</div>
+    <div class="card-sub">Your current brand collaborations</div>
+    <!--
     <div class="deal-list">
       <div class="deal-item"><div class="deal-ico">👟</div><div class="deal-info"><div class="deal-name">SoleFit — Instagram Reel (60s)</div><div class="deal-meta">Fitness · ₹8,500 · Due in 7 days</div></div><div class="d-badge pen">Review</div></div>
       <div class="deal-item"><div class="deal-ico">💄</div><div class="deal-info"><div class="deal-name">GlowCo — 3 Instagram Stories</div><div class="deal-meta">Beauty · ₹5,200 · Due in 5 days</div></div><div class="d-badge pen">Review</div></div>
       <div class="deal-item"><div class="deal-ico">🖥</div><div class="deal-info"><div class="deal-name">TechNova — YouTube Unboxing</div><div class="deal-meta">Tech · ₹22,000 · Active</div></div><div class="d-badge act">Active</div></div>
       <div class="deal-item"><div class="deal-ico">🍃</div><div class="deal-info"><div class="deal-name">Bloom Tea — TikTok Post</div><div class="deal-meta">Lifestyle · ₹3,000 · Completed</div></div><div class="d-badge don">Done</div></div>
     </div>
-  </div>
+    -->
+    <div class="empty">
+      <div class="empty-ico">📭</div>
+      <div class="empty-title">No deals yet</div>
+      <div class="empty-desc">Once brands send you collaboration requests, they'll appear here for you to review and accept.</div>
+    </div>
+</div>
 </div>
 
 <!-- ═══ SOCIAL ACCOUNTS ═══ -->
@@ -915,9 +922,9 @@ document.getElementById('saveProfileBtn').addEventListener('click',async()=>{
     updateCompleteness(full);
     btn.style.background='linear-gradient(135deg,#22d47a,#16a34a)';
     btn.style.boxShadow='0 8px 28px rgba(34,212,122,.35)';
-    lbl.innerHTML='<svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M1.5 6.5L5 10 11.5 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg> Saved!';
-    showToast('Profile saved! ✓','success');
-    setTimeout(()=>{btn.style.background='';btn.style.boxShadow='';lbl.innerHTML='<svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M1.5 6.5L5 10 11.5 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg> Save All Changes';btn.disabled=false;},2400);
+    lbl.innerHTML='Saved!';
+    showToast('Profile saved!','success');
+    setTimeout(()=>{btn.style.background='';btn.style.boxShadow='';lbl.innerHTML='Save All Changes';btn.disabled=false;},2400);
   }catch(e){
     lbl.textContent='Error — try again';
     btn.style.background='linear-gradient(135deg,#ff4444,#cc0000)';
@@ -1030,6 +1037,9 @@ window.showSec=function(id,btn){
   const el=document.getElementById(id); if(el)el.classList.add('active');
   document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
   if(btn)btn.classList.add('active');
+  // Auto-close sidebar on mobile when switching sections
+  sb.classList.remove('open');
+  sbOv.classList.remove('open');
 };
 const hbg=document.getElementById('hbg'),sb=document.getElementById('sidebar'),sbOv=document.getElementById('sbOv');
 hbg.addEventListener('click',()=>{sb.classList.toggle('open');sbOv.classList.toggle('open');});
