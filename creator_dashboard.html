@@ -384,9 +384,9 @@ background-size:128px 128px}
     <div class="banner-glow2"></div>
     <div class="ban-txt">
       <h2 id="welcomeText">Welcome back, Creator 🚀</h2>
-      <p>Your creator journey starts here. Complete your profile to get discovered by top brands.</p>
+      <p id="bannerSubText">Your creator journey starts here. Complete your profile to get discovered by top brands.</p>
     </div>
-    <div class="ban-acts">
+    <div class="ban-acts" id="bannerActions">
       <button class="btn-w" onclick="showSec('deals',document.querySelector('[onclick*=deals]'))">View Deals</button>
       <button class="btn-gw" onclick="showSec('profile',document.querySelector('[onclick*=profile]'))">Complete Profile</button>
     </div>
@@ -750,13 +750,28 @@ function updateChecklist(d){
 }
 
 function updateCompleteness(d){
-  // Removed photoURL from fields
   const fields=[d.name,d.bio,d.niche,d.location,d.instagram,d.followers,d.engagement,d.ratePost||d.rateReel||d.rateYT,d.availability,d.tone];
   const done=fields.filter(Boolean).length;
   const pct=Math.round((done/fields.length)*100);
   document.getElementById('complPct').textContent=pct+'%';
   document.getElementById('barFill').style.width=pct+'%';
   document.getElementById('dashPct').textContent=pct+'%';
+
+  const subText=document.getElementById('bannerSubText');
+  const bannerActions=document.getElementById('bannerActions');
+
+  if(pct===100){
+  if(subText) subText.textContent = "You're all set! Brands can now fully discover you. Sit back and watch the deals roll in. 💸";
+  if(bannerActions) bannerActions.innerHTML = `
+    <button class="btn-w" onclick="showSec('deals',document.querySelector('[onclick*=deals]'))">View Deals</button>
+  `;
+} else {
+  if(subText) subText.textContent = "Your creator journey starts here. Complete your profile to get discovered by top brands.";
+  if(bannerActions) bannerActions.innerHTML = `
+    <button class="btn-w" onclick="showSec('deals',document.querySelector('[onclick*=deals]'))">View Deals</button>
+    <button class="btn-gw" onclick="showSec('profile',document.querySelector('[onclick*=profile]'))">Complete Profile</button>
+  `;
+}
 }
 
 function populateUI(d){
