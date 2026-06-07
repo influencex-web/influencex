@@ -170,27 +170,7 @@
   animation: glowPulseMedium 2.5s ease-in-out infinite;
 }
 
-/* ─── INTERACTIVE GLOW — SECTIONS ─────────── */
-.cta-section,
-.cta-inner {
-  position: relative;
-}
 
-.cta-inner::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  z-index: 0;
-  animation: glowPulseLarge 3s ease-in-out infinite;
-  opacity: 0.4;
-}
-
-.cta-inner > * {
-  position: relative;
-  z-index: 1;
-}
 
 /* ─── GRADIENT TEXT SHIMMER CLASS ─────────── */
 .gradient-text-shimmer {
